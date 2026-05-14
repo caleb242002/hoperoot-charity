@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HopeRoot — Fighting Hunger & Healing the Planet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green: #2d7a4f;
+      --green-light: #e8f5ee;
+      --green-mid: #4aab72;
+      --amber: #d47c2a;
+      --amber-light: #fdf3e3;
+      --amber-mid: #f0a44a;
+      --earth: #8b5e3c;
+      --cream: #faf7f2;
+      --warm: #f5efe6;
+      --ink: #1e2620;
+      --muted: #6b7d70;
+      --border: rgba(45,122,79,0.12);
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ANNOUNCEMENT */
+    .announce {
+      background: var(--green);
+      color: var(--green-light);
+      text-align: center;
+      padding: 0.65rem 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+    .announce span { color: var(--amber-mid); font-weight: 700; }
+
+    /* NAV */
+    nav {
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 200;
+      backdrop-filter: blur(12px);
+    }
+   .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 1.5rem;
+      position: relative; z-index: 201;
+      gap: 0.5rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.7rem;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .logo-text {
+      font-family: 'Lora', serif;
+      font-size: 1.45rem; font-weight: 600;
+      color: var(--green);
+    }
+    .logo-text span { color: var(--amber); }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .hamburger { display: none; }
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-donate {
+      background: var(--amber); color: var(--white);
+      padding: 0.7rem 1.7rem; border-radius: 50px;
+      font-size: 0.82rem; font-weight: 700;
+      border: none; cursor: pointer; text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(212,124,42,0.3);
+      margin-right: 0.5rem;
+    }
+    .nav-donate:hover { background: var(--earth); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(212,124,42,0.35); }
+
+    /* HERO */
+    .hero {
+      position: relative; overflow: hidden;
+      min-height: 94vh;
+      display: flex; align-items: center;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(150deg, rgba(232,245,238,0.88) 0%, rgba(250,247,242,0.82) 45%, rgba(253,243,227,0.88) 100%);
+      z-index: 0;
+    }
+
+    /* Organic shapes */
+    .hero-shape {
+      position: absolute;
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      opacity: 0.07;
+      animation: morphShape 10s ease-in-out infinite;
+    }
+    .hero-shape-1 {
+      width: 500px; height: 500px;
+      background: var(--green);
+      top: -100px; right: -100px;
+      animation-delay: 0s;
+    }
+    .hero-shape-2 {
+      width: 350px; height: 350px;
+      background: var(--amber);
+      bottom: -80px; left: -80px;
+      animation-delay: 3s;
+    }
+    @keyframes morphShape {
+      0%, 100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: rotate(0deg); }
+      50% { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; transform: rotate(3deg); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute; border-radius: 50%;
+      animation: floatUp 7s ease-in-out infinite;
+      opacity: 0.2;
+    }
+    .particle:nth-child(1) { width: 10px; height: 10px; background: var(--green); top: 25%; left: 8%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 7px; height: 7px; background: var(--amber); top: 55%; left: 15%; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 12px; height: 12px; background: var(--green-mid); top: 20%; right: 15%; animation-delay: 4s; }
+    @keyframes floatUp {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-22px); }
+    }
+
+    .hero-content {
+      max-width: 1200px; margin: 0 auto; padding: 5rem 2.5rem;
+      display: grid; grid-template-columns: 1fr;
+      gap: 4rem; align-items: center;
+      position: relative; z-index: 1; width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(45,122,79,0.08);
+      border: 1px solid rgba(45,122,79,0.2);
+      color: var(--green);
+      padding: 0.45rem 1.1rem; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      font-weight: 600; line-height: 1.15;
+      color: var(--ink); margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-title em { font-style: italic; color: var(--green); }
+    .hero-title .amber { color: var(--amber); font-style: italic; }
+
+    .hero-desc {
+      font-size: 1.05rem; line-height: 1.85;
+      color: var(--muted); max-width: 500px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--green); color: var(--white);
+      padding: 1rem 2.4rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 700;
+      border: none; cursor: pointer; text-decoration: none; display: inline-block;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(45,122,79,0.3);
+    }
+    .btn-primary:hover { background: #1f5936; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,122,79,0.4); }
+
+    .btn-outline {
+      background: transparent; color: var(--amber);
+      padding: 1rem 2rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 700;
+      border: 2px solid var(--amber); cursor: pointer; text-decoration: none; display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--amber); color: var(--white); }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+    .hero-stat strong {
+      font-family: 'Lora', serif;
+      font-size: 2rem; font-weight: 600;
+      color: var(--green); display: block; line-height: 1;
+    }
+    .hero-stat span { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+    .stat-sep { width: 1px; background: var(--border); }
+
+    /* DONATION CARD */
+    .donate-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.2rem;
+      box-shadow: 0 20px 60px rgba(45,122,79,0.1);
+      animation: fadeUp 0.7s 0.2s ease both;
+      position: relative; overflow: hidden;
+    }
+    .donate-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--green), var(--amber));
+    }
+    .donate-card-title {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .donate-card-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.8rem; line-height: 1.5; }
+
+    /* Cause selector */
+    .cause-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
+    }
+    .cause-tab {
+      flex: 1; padding: 0.6rem;
+      border-radius: 10px; border: 2px solid var(--border);
+      background: var(--warm); cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--muted); text-align: center;
+      transition: all 0.2s;
+    }
+    .cause-tab .tab-icon { display: block; font-size: 1.2rem; margin-bottom: 0.2rem; }
+    .cause-tab.active-hunger { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
+    .cause-tab.active-env { background: var(--green-light); border-color: var(--green); color: var(--green); }
+    .cause-tab:not(.active-hunger):not(.active-env):hover { border-color: var(--muted); color: var(--ink); }
+
+    /* Progress */
+    .goal-progress { margin-bottom: 1.5rem; }
+    .goal-labels {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 0.6rem;
+    }
+    .goal-raised {
+      font-family: 'Lora', serif;
+      font-size: 1.5rem; font-weight: 600; color: var(--green);
+      line-height: 1;
+    }
+    .goal-raised.hunger { color: var(--amber); }
+    .goal-target { font-size: 0.75rem; color: var(--muted); }
+    .progress-track {
+      height: 10px; background: var(--warm); border-radius: 50px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 50px; width: 0%;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    .progress-fill.env { background: linear-gradient(90deg, var(--green), var(--green-mid)); }
+    .progress-fill.hunger { background: linear-gradient(90deg, var(--amber), var(--amber-mid)); }
+    .goal-meta {
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: var(--muted); margin-top: 0.5rem;
+    }
+
+    /* Amount buttons */
+    .amounts-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem; margin-bottom: 0.8rem;
+    }
+    .amt-btn {
+      padding: 0.65rem 0.4rem; border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--warm); cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem; font-weight: 700; color: var(--ink);
+      text-align: center; transition: all 0.18s;
+    }
+    .amt-btn .impact { display: block; font-size: 0.58rem; font-weight: 500; color: var(--muted); margin-top: 0.1rem; }
+    .amt-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+    .amt-btn.selected { background: var(--green); color: var(--white); border-color: var(--green); }
+    .amt-btn.selected .impact { color: rgba(255,255,255,0.75); }
+    .amt-btn.hunger-selected { background: var(--amber); color: var(--white); border-color: var(--amber); }
+    .amt-btn.hunger-selected .impact { color: rgba(255,255,255,0.75); }
+
+    .custom-field {
+      display: flex; gap: 0.5rem; margin-bottom: 1.2rem;
+    }
+    .custom-field input {
+      flex: 1; background: var(--warm);
+      border: 2px solid var(--border); border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s;
+    }
+    .custom-field input:focus { border-color: var(--green); }
+    .custom-field input::placeholder { color: rgba(107,125,112,0.5); }
+
+    .donate-btn {
+      width: 100%; background: var(--green); color: var(--white);
+      padding: 1.05rem; border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem; font-weight: 800;
+      letter-spacing: 0.04em; border: none; cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(45,122,79,0.3);
+    }
+    .donate-btn:hover { background: #1f5936; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,122,79,0.4); }
+    .donate-btn.hunger-btn { background: var(--amber); box-shadow: 0 4px 20px rgba(212,124,42,0.3); }
+    .donate-btn.hunger-btn:hover { background: var(--earth); box-shadow: 0 8px 30px rgba(212,124,42,0.4); }
+
+    .secure-note {
+      text-align: center; margin-top: 0.8rem;
+      font-size: 0.7rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* IMPACT NUMBERS */
+    .impact-strip {
+      background: var(--green);
+      padding: 3.5rem 2.5rem;
+    }
+    .impact-strip-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center;
+    }
+    .impact-num strong {
+      font-family: 'Lora', serif;
+      font-size: 2.8rem; font-weight: 600;
+      color: var(--white); display: block; line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .impact-num span { font-size: 0.82rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+    .impact-num .icon { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+
+    /* CAUSES */
+    .causes {
+      max-width: 1200px; margin: 0 auto;
+      padding: 7rem 2.5rem;
+    }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1rem;
+    }
+    .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--green); display: inline-block; }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600;
+      color: var(--ink); line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--green); }
+    .section-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 560px; margin-bottom: 4rem; }
+
+    .causes-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .cause-card {
+      border-radius: 20px; overflow: hidden;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .cause-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+
+    .cause-card-img {
+      height: 260px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cause-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .cause-card:hover .cause-card-img img { transform: scale(1.05); }
+    .cause-card-img .img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5) 100%);
+    }
+    .cause-card-img .cause-badge {
+      position: absolute; top: 1.2rem; left: 1.2rem;
+      padding: 0.35rem 0.9rem; border-radius: 50px;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .badge-hunger { background: var(--amber); color: var(--white); }
+    .badge-env { background: var(--green); color: var(--white); }
+
+    .cause-card-body {
+      padding: 2rem;
+      background: var(--white);
+    }
+    .cause-card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+    .cause-card-title {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 0.8rem; line-height: 1.3;
+    }
+    .cause-card-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+
+    /* Mini progress */
+    .mini-progress { margin-bottom: 1.5rem; }
+    .mini-progress-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; margin-bottom: 0.4rem;
+    }
+    .mini-progress-labels .raised { font-weight: 700; }
+    .mini-progress-labels .pct { color: var(--muted); }
+    .mini-track { height: 6px; background: var(--warm); border-radius: 50px; overflow: hidden; }
+    .mini-fill { height: 100%; border-radius: 50px; }
+    .mini-fill.hunger { background: linear-gradient(90deg, var(--amber), var(--amber-mid)); width: 72%; }
+    .mini-fill.env { background: linear-gradient(90deg, var(--green), var(--green-mid)); width: 55%; }
+
+    .cause-card-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 700;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .cause-card-cta.green { color: var(--green); }
+    .cause-card-cta.amber { color: var(--amber); }
+    .cause-card-cta:hover { gap: 0.8rem; }
+
+    /* STORIES */
+    .stories {
+      background: var(--warm);
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .stories-inner { max-width: 1200px; margin: 0 auto; }
+    .stories-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1.5rem;
+    }
+
+    .stories-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .story-card {
+      background: var(--white);
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .story-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+    .story-img {
+      height: 200px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .story-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .story-card:hover .story-img img { transform: scale(1.04); }
+
+    .story-body { padding: 1.5rem; }
+    .story-tag {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 50px;
+      margin-bottom: 0.8rem;
+    }
+    .tag-hunger { background: var(--amber-light); color: var(--amber); }
+    .tag-env { background: var(--green-light); color: var(--green); }
+
+    .story-title {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem; font-weight: 600; color: var(--ink);
+      line-height: 1.4; margin-bottom: 0.7rem;
+    }
+    .story-excerpt { font-size: 0.83rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .story-meta {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .story-meta::before { content: '📍'; font-size: 0.75rem; }
+
+    /* HOW IT WORKS */
+    .how {
+      max-width: 1200px; margin: 0 auto;
+      padding: 7rem 2.5rem;
+    }
+    .how-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; margin-top: 4rem; position: relative;
+    }
+    .how-grid::before {
+      content: '';
+      position: absolute; top: 40px; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, var(--green), var(--amber));
+      z-index: 0; opacity: 0.3;
+    }
+    .how-step {
+      text-align: center; position: relative; z-index: 1;
+    }
+    .how-step-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin: 0 auto 1.2rem;
+      position: relative;
+    }
+    .how-step-icon::after {
+      content: attr(data-num);
+      position: absolute; top: -4px; right: -4px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--ink); color: var(--white);
+      font-size: 0.65rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Nunito', sans-serif;
+    }
+    .icon-green { background: var(--green-light); }
+    .icon-amber { background: var(--amber-light); }
+    .how-step h4 {
+      font-family: 'Lora', serif;
+      font-size: 1rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .how-step p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      background: var(--green);
+      padding: 7rem 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .testimonials::before {
+      content: '"';
+      position: absolute; top: -2rem; left: 2rem;
+      font-family: 'Lora', serif; font-size: 20rem;
+      color: rgba(255,255,255,0.04); line-height: 1;
+      pointer-events: none;
+    }
+    .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+    .testimonials .section-tag { color: var(--amber-mid); }
+    .testimonials .section-tag::before { background: var(--amber-mid); }
+    .testimonials .section-title { color: var(--white); }
+    .testimonials .section-desc { color: rgba(255,255,255,0.6); }
+
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testi-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 2rem;
+      transition: background 0.3s;
+    }
+    .testi-card:hover { background: rgba(255,255,255,0.12); }
+    .testi-quote {
+      font-family: 'Lora', serif;
+      font-size: 1rem; font-style: italic;
+      color: rgba(255,255,255,0.9); line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .testi-name {
+      font-weight: 700; font-size: 0.88rem; color: var(--white);
+    }
+    .testi-role { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem; }
+
+    /* DONATION MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(30,38,32,0.5);
+      z-index: 300; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 24px;
+      width: 100%; max-width: 500px;
+      max-height: 90vh; overflow-y: auto;
+      transform: scale(0.95) translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+    .modal-header {
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; background: var(--white); border-radius: 24px 24px 0 0; z-index: 1;
+    }
+    .modal-header h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--ink);
+    }
+    .modal-close {
+      background: var(--warm); border: none; width: 32px; height: 32px;
+      border-radius: 50%; cursor: pointer; font-size: 1rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--border); }
+
+    .modal-body { padding: 2rem; }
+
+    /* Modal steps */
+    .modal-steps {
+      display: flex; gap: 0.5rem; margin-bottom: 2rem;
+    }
+    .modal-step {
+      flex: 1; height: 4px; border-radius: 2px;
+      background: var(--border); transition: background 0.3s;
+    }
+    .modal-step.done { background: var(--green); }
+    .modal-step.hunger-done { background: var(--amber); }
+
+    .modal-section { display: none; }
+    .modal-section.active { display: block; animation: fadeUp 0.3s ease; }
+
+    .modal-section h4 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem;
+    }
+    .modal-section p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.6; }
+
+    .m-field { margin-bottom: 1.1rem; }
+    .m-field label {
+      display: block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .m-field input, .m-field select {
+      width: 100%; background: var(--warm);
+      border: 2px solid var(--border); border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-family: 'Nunito', sans-serif; font-size: 0.92rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s; appearance: none;
+    }
+    .m-field input:focus, .m-field select:focus { border-color: var(--green); }
+    .m-field input.err { border-color: #e05252; }
+    .m-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+
+    .modal-footer {
+      padding: 1rem 2rem 2rem;
+      display: flex; gap: 0.8rem;
+    }
+    .modal-back {
+      background: var(--warm); border: none; padding: 0.9rem 1.4rem;
+      border-radius: 50px; font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem; font-weight: 700; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .modal-back:hover { color: var(--ink); }
+    .modal-next {
+      flex: 1; background: var(--green); color: var(--white);
+      border: none; padding: 0.9rem; border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem; font-weight: 800; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .modal-next:hover { background: #1f5936; }
+    .modal-next.amber { background: var(--amber); }
+    .modal-next.amber:hover { background: var(--earth); }
+
+    /* Success */
+    .modal-success {
+      text-align: center; padding: 3rem 2rem;
+      display: none; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .modal-success.show { display: flex; animation: fadeUp 0.4s ease; }
+    .success-icon {
+      width: 75px; height: 75px; border-radius: 50%;
+      background: var(--green-light); border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; animation: popIn 0.4s 0.2s ease both;
+    }
+    .success-icon.hunger { background: var(--amber-light); border-color: var(--amber); }
+    @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-success h3 {
+      font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 600; color: var(--green);
+    }
+    .modal-success h3.hunger { color: var(--amber); }
+    .modal-success p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 320px; }
+    .ref-num { font-size: 0.8rem; color: var(--green); font-weight: 700; letter-spacing: 0.08em; }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.7);
+      padding: 5rem 2.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 2rem;
+    }
+    .footer-brand .logo-text { color: var(--white); font-size: 1.6rem; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.75; margin-top: 1rem; max-width: 260px; }
+
+    .footer-col h4 {
+      font-family: 'Lora', serif; font-size: 1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul a { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--green-mid); }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .footer-socials { display: flex; gap: 0.8rem; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .social-link:hover { background: var(--green); }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink); color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600;
+      z-index: 500; opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+   /* HAMBURGER */
+    .hamburger {
+      display: flex;
+      flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      padding: 4px; z-index: 201;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--ink); border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 113px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      z-index: 199;
+      padding: 1rem 0;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      animation: slideDown 0.3s ease;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu ul li a {
+      display: block; padding: 0.9rem 2rem;
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, background 0.2s;
+    }
+    .mobile-menu ul li:last-child a { border-bottom: none; }
+    .mobile-menu ul li a:hover { color: var(--green); background: var(--green-light); }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .impact-strip-inner { grid-template-columns: repeat(2, 1fr); }
+      .how-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-grid::before { display: none; }
+      .stories-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+      .causes-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .stories-grid { grid-template-columns: 1fr; }
+      .causes, .how, .stories, .testimonials { padding: 4rem 1.5rem; }
+      .hero-content { padding: 4rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .how-grid { grid-template-columns: 1fr; }
+      .impact-strip-inner { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCE -->
+  <div class="announce">
+    Every <span>$100</span> donated feeds a family for a week · Every <span>$1,000</span> plants 10 trees 🌱
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="logo-icon">🌱</div>
+        <div class="logo-text">Hope<span>Root</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#causes">Our Causes</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#donate-section">Donate</a></li>
+      </ul>
+      <a href="#" class="nav-donate" onclick="openModal('hunger'); return false;">Donate Now 💛</a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <ul>
+      <li><a href="#causes" onclick="closeMenu()">Our Causes</a></li>
+      <li><a href="#stories" onclick="closeMenu()">Stories</a></li>
+      <li><a href="#how" onclick="closeMenu()">How It Works</a></li>
+      <li><a href="#donate-section" onclick="closeMenu()">Donate</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-tag">Making a difference since 2018</div>
+        <h1 class="hero-title">
+          Fighting <em>hunger.</em><br>
+          Healing our <span class="amber">planet.</span><br>
+          Together.
+        </h1>
+        <p class="hero-desc">
+          HopeRoot is a non-profit on a mission to end food insecurity and restore our environment — one meal, one tree, one community at a time. Your donation creates real, lasting change.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary" onclick="openModal('hunger'); return false;">🍽️ Fight Hunger</a>
+          <a href="#" class="btn-outline" onclick="openModal('env'); return false;">🌿 Heal the Planet</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>2.4M</strong>
+            <span>Meals provided</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="hero-stat">
+            <strong>180K</strong>
+            <span>Trees planted</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="hero-stat">
+            <strong>42</strong>
+            <span>Countries reached</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DONATION CARD -->
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT STRIP -->
+  <div class="impact-strip">
+    <div class="impact-strip-inner">
+      <div class="impact-num reveal">
+        <span class="icon">🍽️</span>
+        <strong>2.4M+</strong>
+        <span>Meals provided to families in need</span>
+      </div>
+      <div class="impact-num reveal reveal-delay-1">
+        <span class="icon">🌳</span>
+        <strong>180K</strong>
+        <span>Trees planted across Africa</span>
+      </div>
+      <div class="impact-num reveal reveal-delay-2">
+        <span class="icon">🌍</span>
+        <strong>42</strong>
+        <span>Countries with active programs</span>
+      </div>
+      <div class="impact-num reveal reveal-delay-3">
+        <span class="icon">❤️</span>
+        <strong>98%</strong>
+        <span>Of donations go directly to causes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAUSES -->
+  <section class="causes" id="causes">
+    <div class="reveal">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title">Two causes. <em>One mission.</em></h2>
+      <p class="section-desc">We believe ending hunger and healing our environment go hand in hand. A healthy planet grows healthy food. Healthy communities protect their environment.</p>
+    </div>
+
+    <div class="causes-grid">
+      <div class="cause-card reveal">
+        <div class="cause-card-img">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Hunger Relief"/>
+          <div class="img-overlay"></div>
+          <span class="cause-badge badge-hunger">Hunger Relief</span>
+        </div>
+        <div class="cause-card-body">
+          <span class="cause-card-icon">🍽️</span>
+          <h3 class="cause-card-title">No Child Should Go to Bed Hungry</h3>
+          <p class="cause-card-desc">Over 800 million people worldwide face hunger every day. Through community feeding programs, school meals, and emergency food relief, we're putting food on tables across Africa and beyond.</p>
+          <div class="mini-progress">
+            <div class="mini-progress-labels">
+              <span class="raised" style="color:var(--amber)">$3.6M raised</span>
+              <span class="pct">72% of goal</span>
+            </div>
+            <div class="mini-track"><div class="mini-fill hunger"></div></div>
+          </div>
+          <a href="#" class="cause-card-cta amber" onclick="openModal('hunger'); return false;">
+            Donate to Hunger Relief →
+          </a>
+        </div>
+      </div>
+
+      <div class="cause-card reveal reveal-delay-1">
+        <div class="cause-card-img">
+          <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80" alt="Environment"/>
+          <div class="img-overlay"></div>
+          <span class="cause-badge badge-env">Environment</span>
+        </div>
+        <div class="cause-card-body">
+          <span class="cause-card-icon">🌿</span>
+          <h3 class="cause-card-title">Restoring the Planet, One Tree at a Time</h3>
+          <p class="cause-card-desc">Deforestation, plastic pollution and climate change are devastating communities. We plant trees, clean waterways, run environmental education programs and support sustainable farming.</p>
+          <div class="mini-progress">
+            <div class="mini-progress-labels">
+              <span class="raised" style="color:var(--green)">$2.75M raised</span>
+              <span class="pct">55% of goal</span>
+            </div>
+            <div class="mini-track"><div class="mini-fill env"></div></div>
+          </div>
+          <a href="#" class="cause-card-cta green" onclick="openModal('env'); return false;">
+            Donate to Environment →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section class="stories" id="stories">
+    <div class="stories-inner">
+      <div class="stories-header reveal">
+        <div>
+          <div class="section-tag">Real Stories</div>
+          <h2 class="section-title">Lives <em>changed</em> by your generosity</h2>
+        </div>
+      </div>
+      <div class="stories-grid">
+        <div class="story-card reveal">
+          <div class="story-img">
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=600&q=80" alt="Story"/>
+          </div>
+          <div class="story-body">
+            <span class="story-tag tag-hunger">Hunger Relief</span>
+            <h3 class="story-title">"My children now eat three meals a day"</h3>
+            <p class="story-excerpt">Fatima, a mother of four in northern Nigeria, describes how HopeRoot's community feeding program changed her family's life during the dry season.</p>
+            <div class="story-meta">Kano, Nigeria</div>
+          </div>
+        </div>
+        <div class="story-card reveal reveal-delay-1">
+          <div class="story-img">
+            <img src="https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=600&q=80" alt="Story"/>
+          </div>
+          <div class="story-body">
+            <span class="story-tag tag-env">Environment</span>
+            <h3 class="story-title">10,000 trees planted in the Sahel</h3>
+            <p class="story-excerpt">Our reforestation program in the Sahel region has restored 200 hectares of degraded land, bringing back wildlife and giving farmers fertile soil again.</p>
+            <div class="story-meta">Sahel, West Africa</div>
+          </div>
+        </div>
+        <div class="story-card reveal reveal-delay-2">
+          <div class="story-img">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80" alt="Story"/>
+          </div>
+          <div class="story-body">
+            <span class="story-tag tag-hunger">Hunger Relief</span>
+            <h3 class="story-title">School meals keeping children in class</h3>
+            <p class="story-excerpt">In rural Kenya, our school feeding program has increased attendance by 40%. Children who used to skip school to find food now come every day.</p>
+            <div class="story-meta">Nairobi, Kenya</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="reveal">
+      <div class="section-tag">Transparency</div>
+      <h2 class="section-title">How your donation <em>works</em></h2>
+      <p class="section-desc">We believe in complete transparency. Here's exactly how every naira you donate gets to those who need it most.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="how-step-icon icon-amber" data-num="1">💳</div>
+        <h4>You Donate</h4>
+        <p>Make a secure donation online. Choose your cause, your amount, and pay safely with your card.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-icon icon-green" data-num="2">✅</div>
+        <h4>We Verify</h4>
+        <p>Every donation is processed securely. You receive a confirmation and tax receipt within minutes.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-icon icon-amber" data-num="3">🚚</div>
+        <h4>We Deliver</h4>
+        <p>98% of funds go directly to the field. Our on-ground teams distribute food and plant trees.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-step-icon icon-green" data-num="4">📊</div>
+        <h4>We Report</h4>
+        <p>You receive monthly updates on the real impact your donation created in communities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-inner">
+      <div class="section-tag reveal">Donor Stories</div>
+      <h2 class="section-title reveal">Why people <em>give</em> with HopeRoot</h2>
+      <p class="section-desc reveal">Join thousands of donors who trust HopeRoot to turn their generosity into real impact.</p>
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <p class="testi-quote">"I've donated to many charities, but HopeRoot is the only one that sends me real photos and updates from the field. I know exactly where my money goes."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👩🏾</div>
+            <div>
+              <div class="testi-name">John Doe</div>
+              <div class="testi-role">Monthly donor · Lagos, Nigeria</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-1">
+          <p class="testi-quote">"The environment program is incredible. I donated $10,000 and they sent me a certificate showing the exact trees planted in my name. My kids loved it."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👨🏿</div>
+            <div>
+              <div class="testi-name">Emeka Chukwu</div>
+              <div class="testi-role">One-time donor · Abuja, Nigeria</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-2">
+          <p class="testi-quote">"As a business owner I wanted to give back. HopeRoot made it easy to set up a monthly donation and their team was so responsive. Highly recommended."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👩🏽</div>
+            <div>
+              <div class="testi-name">Zainab Musa</div>
+              <div class="testi-role">Corporate donor · Kano, Nigeria</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo" style="margin-bottom:1rem">
+            <div class="logo-icon">🌱</div>
+            <div class="logo-text">Hope<span>Root</span></div>
+          </div>
+          <p>Fighting hunger and healing the planet — one donation at a time. Registered non-profit. 98% of funds go directly to the field.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Our Causes</h4>
+          <ul>
+            <li><a href="#">Hunger Relief</a></li>
+            <li><a href="#">Tree Planting</a></li>
+            <li><a href="#">School Feeding</a></li>
+            <li><a href="#">Emergency Relief</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Organisation</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Annual Report</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <ul>
+            <li><a href="#">Donate</a></li>
+            <li><a href="#">Volunteer</a></li>
+            <li><a href="#">Partner With Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 HopeRoot Foundation. All rights reserved. Registered Non-Profit.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link">𝕏</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">▶</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DONATION MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Make a Donation</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+
+      <div id="modal-form-area">
+        <div class="modal-body">
+          <div class="modal-steps">
+            <div class="modal-step done" id="mstep-1"></div>
+            <div class="modal-step" id="mstep-2"></div>
+            <div class="modal-step" id="mstep-3"></div>
+          </div>
+
+         <!-- Step 1: Amount -->
+          <div class="modal-section active" id="msec-1">
+            <div class="cause-tabs" style="margin-bottom:1.2rem">
+              <button class="cause-tab active-hunger" id="modal-tab-hunger" onclick="switchModalCause('hunger')">
+                <span class="tab-icon">🍽️</span>
+                Hunger Relief
+              </button>
+              <button class="cause-tab" id="modal-tab-env" onclick="switchModalCause('env')">
+                <span class="tab-icon">🌿</span>
+                Environment
+              </button>
+            </div>
+            <h4>Choose Your Amount</h4>
+            <p id="modal-cause-desc">Choose a cause above then select your amount. 100% goes directly to the field.</p>   <div class="amounts-grid" id="modal-amounts">
+              <button class="amt-btn" onclick="selectModalAmt(this, 2000)">$2,000<span class="impact">Feeds 1 child</span></button>
+              <button class="amt-btn selected" onclick="selectModalAmt(this, 5000)">$5,000<span class="impact">Feeds a family</span></button>
+              <button class="amt-btn" onclick="selectModalAmt(this, 10000)">$10,000<span class="impact">Week of meals</span></button>
+              <button class="amt-btn" onclick="selectModalAmt(this, 25000)">$25,000<span class="impact">Month supply</span></button>
+              <button class="amt-btn" onclick="selectModalAmt(this, 50000)">$50,000<span class="impact">Community meal</span></button>
+              <button class="amt-btn" onclick="selectModalAmt(this, 100000)">$100,000<span class="impact">School feeding</span></button>
+            </div>
+            <div class="custom-field" style="margin-top:0.5rem">
+              <input type="number" id="modal-custom" placeholder="Or enter custom amount ($)"/>
+            </div>
+          </div>
+
+          <!-- Step 2: Personal Info -->
+          <div class="modal-section" id="msec-2">
+            <h4>Your Details</h4>
+            <p>We'll send your donation receipt and impact updates to this email.</p>
+            <div class="m-field-row">
+              <div class="m-field"><label>First Name</label><input type="text" id="m-fname" placeholder="John"/></div>
+              <div class="m-field"><label>Last Name</label><input type="text" id="m-lname" placeholder="Doe"/></div>
+            </div>
+            <div class="m-field"><label>Email Address</label><input type="email" id="m-email" placeholder="John@example.com"/></div>
+            <div class="m-field"><label>Phone (optional)</label><input type="tel" id="m-phone" placeholder="+1 417 000 0000"/></div>
+          </div>
+
+          <!-- Step 3: Payment -->
+          <div class="modal-section" id="msec-3">
+            <h4>Payment Details</h4>
+            <p>Your payment is secured with 256-bit SSL encryption.</p>
+            <div class="m-field"><label>Cardholder Name</label><input type="text" id="m-cardname" placeholder="John Doe"/></div>
+            <div class="m-field"><label>Card Number</label><input type="text" id="m-cardnum" placeholder="0000 0000 0000 0000" maxlength="19" oninput="fmtCard(this)"/></div>
+            <div class="m-field-row">
+              <div class="m-field"><label>Expiry</label><input type="text" id="m-expiry" placeholder="MM / YY" maxlength="7" oninput="fmtExpiry(this)"/></div>
+              <div class="m-field"><label>CVV</label><input type="text" id="m-cvv" placeholder="•••" maxlength="3"/></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="modal-back" id="m-back" style="display:none" onclick="mBack()">← Back</button>
+          <button class="modal-next" id="m-next" onclick="mNext()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="modal-success" id="modal-success">
+        <div class="success-icon" id="success-icon">💚</div>
+        <h3 id="success-title">Thank You!</h3>
+        <p id="success-msg">Your donation has been received. You're making a real difference.</p>
+        <p class="ref-num" id="success-ref"></p>
+        <button class="btn-primary" onclick="closeModal()" style="margin-top:0.5rem">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ── HAMBURGER MENU ────────────────────────────────────────────
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // ── STATE ─────────────────────────────────────────────────────
+    let activeCause = 'hunger';
+    let selectedAmt = 5000;
+    let mStep = 1;
+
+    const causeData = {
+      hunger: {
+        tab: 'active-hunger', btnClass: 'hunger-btn', progressClass: 'hunger',
+        raised: '$504,600 raised', target: 'Goal: $5,000,000',
+        donors: '1,248 donors', days: '240 days left', pct: '72%', width: '72%',
+        btnText: 'Donate Now — Feed a Family 🍽️',
+        amounts: [
+          { val: 2000, label: '$5', impact: 'Feeds 1 child' },
+          { val: 5000, label: '$100', impact: 'Feeds a family' },
+          { val: 10000, label: '$1,000', impact: 'Week of meals' },
+          { val: 25000, label: '$15,000', impact: 'Month supply' },
+          { val: 50000, label: '$25,000', impact: 'Community meal' },
+          { val: 100000, label: '$50,000', impact: 'School feeding' },
+        ],
+        modalDesc: 'Your donation goes directly to feeding families in need.',
+        successIcon: '🍽️', successTitle: 'Thank You for Fighting Hunger!',
+        successMsg: 'Your donation will help feed families who need it most. You\'ll receive an impact update by email.'
+      },
+      env: {
+        tab: 'active-env', btnClass: '', progressClass: 'env',
+        raised: '$221,750 raised', target: 'Goal: $5,000,000',
+        donors: '984 donors', days: '244 days left', pct: '55%', width: '55%',
+        btnText: 'Donate Now — Plant Trees 🌿',
+        amounts: [
+          { val: 2000, label: '$100', impact: '2 trees planted' },
+          { val: 5000, label: '$1,000', impact: '5 trees planted' },
+          { val: 10000, label: '$5,000', impact: '10 trees planted' },
+          { val: 25000, label: '$25,000', impact: '25 trees planted' },
+          { val: 50000, label: '$50,000', impact: '50 trees + care' },
+          { val: 100000, label: '$100,000', impact: 'Forest plot' },
+        ],
+        modalDesc: 'Your donation plants trees and restores ecosystems for future generations.',
+        successIcon: '🌿', successTitle: 'Thank You for Healing the Planet!',
+        successMsg: 'Trees will be planted in your name. You\'ll receive a certificate and GPS coordinates of your trees by email.'
+      }
+    };
+
+    // ── CAUSE SWITCH ──────────────────────────────────────────────
+    function switchCause(cause) {
+      activeCause = cause;
+      selectedAmt = causeData[cause].amounts[1].val;
+      const d = causeData[cause];
+
+      // Update tabs
+      document.getElementById('tab-hunger').className = 'cause-tab' + (cause === 'hunger' ? ' active-hunger' : '');
+      document.getElementById('tab-env').className = 'cause-tab' + (cause === 'env' ? ' active-env' : '');
+
+      // Update progress
+      document.getElementById('raised-label').textContent = d.raised;
+      document.getElementById('raised-label').className = 'goal-raised ' + (cause === 'hunger' ? 'hunger' : '');
+      document.getElementById('donors-label').textContent = d.donors;
+      document.getElementById('days-label').textContent = d.days;
+
+      const fill = document.getElementById('progress-fill');
+      fill.className = 'progress-fill ' + d.progressClass;
+      fill.style.width = '0%';
+      setTimeout(() => fill.style.width = d.width, 50);
+
+      // Update amounts
+      renderAmounts('amounts-grid', cause);
+
+      // Update button
+      const btn = document.getElementById('main-donate-btn');
+      btn.textContent = d.btnText;
+      btn.className = 'donate-btn ' + d.btnClass;
+    }
+
+    function renderAmounts(gridId, cause) {
+      const grid = document.getElementById(gridId);
+      const amounts = causeData[cause].amounts;
+      grid.innerHTML = amounts.map((a, i) => `
+        <button class="amt-btn ${i === 1 ? (cause === 'hunger' ? 'hunger-selected selected' : 'selected') : ''}"
+          onclick="selectAmt(this, ${a.val})">${a.label}<span class="impact">${a.impact}</span></button>
+      `).join('');
+    }
+
+    function renderModalAmounts(cause) {
+      const grid = document.getElementById('modal-amounts');
+      const amounts = causeData[cause].amounts;
+      grid.innerHTML = amounts.map((a, i) => `
+        <button class="amt-btn ${i === 1 ? 'selected' : ''}"
+          onclick="selectModalAmt(this, ${a.val})">${a.label}<span class="impact">${a.impact}</span></button>
+      `).join('');
+    }
+
+    // ── AMOUNT SELECTION ──────────────────────────────────────────
+    function selectAmt(btn, val) {
+      selectedAmt = val;
+      document.querySelectorAll('#amounts-grid .amt-btn').forEach(b => {
+        b.classList.remove('selected', 'hunger-selected');
+      });
+      btn.classList.add('selected');
+      if (activeCause === 'hunger') btn.classList.add('hunger-selected');
+    }
+
+    function selectModalAmt(btn, val) {
+      selectedAmt = val;
+      document.querySelectorAll('#modal-amounts .amt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    // ── MODAL ─────────────────────────────────────────────────────
+    function openModal(cause) {
+      activeCause = cause;
+      mStep = 1;
+      const d = causeData[cause];
+
+      document.getElementById('modal-title').textContent = '💛 Make a Donation';  document.getElementById('modal-cause-desc').textContent = d.modalDesc;
+      document.getElementById('m-next').className = 'modal-next ' + (cause === 'hunger' ? 'amber' : '');
+      renderModalAmounts(cause);
+      updateMSteps();
+
+      document.getElementById('modal-success').classList.remove('show');
+      document.getElementById('modal-form-area').style.display = '';
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function switchModalCause(cause) {
+      activeCause = cause;
+      document.getElementById('modal-tab-hunger').className = 'cause-tab' + (cause === 'hunger' ? ' active-hunger' : '');
+      document.getElementById('modal-tab-env').className = 'cause-tab' + (cause === 'env' ? ' active-env' : '');
+      document.getElementById('m-next').className = 'modal-next ' + (cause === 'hunger' ? 'amber' : '');
+      renderModalAmounts(cause);
+    }
+
+    function openModalFromCard() {
+      const custom = parseFloat(document.getElementById('custom-amount').value);
+      if (custom > 0) selectedAmt = custom;
+      openModal(activeCause);
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      // Reset form
+      mStep = 1;
+      document.querySelectorAll('.modal-section').forEach((s, i) => s.classList.toggle('active', i === 0));
+      document.getElementById('modal-success').classList.remove('show');
+      document.getElementById('modal-form-area').style.display = '';
+    }
+
+    function updateMSteps() {
+      [1,2,3].forEach(n => {
+        const el = document.getElementById('mstep-' + n);
+        const doneClass = activeCause === 'hunger' ? 'hunger-done' : 'done';
+        el.className = 'modal-step ' + (n < mStep ? doneClass : n === mStep ? doneClass : '');
+        document.getElementById('msec-' + n).classList.toggle('active', n === mStep);
+      });
+      document.getElementById('m-back').style.display = mStep > 1 ? '' : 'none';
+      document.getElementById('m-next').textContent = mStep === 3 ? `Complete Donation — $${selectedAmt.toLocaleString()} →` : 'Continue →';
+    }
+
+    function mNext() {
+      if (mStep === 1) {
+        const custom = parseFloat(document.getElementById('modal-custom').value);
+        if (custom > 0) selectedAmt = custom;
+        mStep = 2;
+      } else if (mStep === 2) {
+        const fname = document.getElementById('m-fname').value.trim();
+        const lname = document.getElementById('m-lname').value.trim();
+        const email = document.getElementById('m-email').value.trim();
+        let valid = true;
+        ['m-fname','m-lname','m-email'].forEach(id => {
+          const el = document.getElementById(id);
+          const empty = !el.value.trim();
+          if (id === 'm-email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) {
+            el.classList.add('err'); valid = false;
+          } else {
+            el.classList.toggle('err', empty);
+            if (empty) valid = false;
+          }
+        });
+        if (!valid) { showToast('Please fill in all required fields.'); return; }
+        mStep = 3;
+      } else if (mStep === 3) {
+        const cardName = document.getElementById('m-cardname').value.trim();
+        const cardNum = document.getElementById('m-cardnum').value.replace(/\s/g,'');
+        const expiry = document.getElementById('m-expiry').value;
+        const cvv = document.getElementById('m-cvv').value;
+        let valid = true;
+        if (!cardName) { document.getElementById('m-cardname').classList.add('err'); valid = false; }
+        if (cardNum.length < 16) { document.getElementById('m-cardnum').classList.add('err'); valid = false; }
+        if (expiry.length < 7) { document.getElementById('m-expiry').classList.add('err'); valid = false; }
+        if (cvv.length < 3) { document.getElementById('m-cvv').classList.add('err'); valid = false; }
+        if (!valid) { showToast('Please check your payment details.'); return; }
+
+        // Show success
+        const d = causeData[activeCause];
+        const ref = 'HR-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('success-icon').textContent = d.successIcon;
+        document.getElementById('success-title').textContent = d.successTitle;
+        document.getElementById('success-msg').textContent = d.successMsg;
+        document.getElementById('success-ref').textContent = 'Reference: ' + ref;
+        document.getElementById('modal-form-area').style.display = 'none';
+        document.getElementById('modal-success').classList.add('show');
+        return;
+      }
+      updateMSteps();
+    }
+
+    function mBack() {
+      if (mStep > 1) { mStep--; updateMSteps(); }
+    }
+
+    // ── CARD FORMATTING ───────────────────────────────────────────
+    function fmtCard(input) {
+      let v = input.value.replace(/\D/g,'').substring(0,16);
+      input.value = v.replace(/(.{4})/g,'$1 ').trim();
+      input.classList.remove('err');
+    }
+    function fmtExpiry(input) {
+      let v = input.value.replace(/\D/g,'').substring(0,4);
+      if (v.length >= 2) v = v.slice(0,2) + ' / ' + v.slice(2);
+      input.value = v;
+      input.classList.remove('err');
+    }
+
+    // ── TOAST ─────────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // ── SCROLL REVEAL ─────────────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── PROGRESS ANIMATION ON LOAD ────────────────────────────────
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('progress-fill').style.width = '72%';
+      }, 300);
+    });
+
+    // ── INIT ──────────────────────────────────────────────────────
+    renderAmounts('amounts-grid', 'hunger');
+  </script>
+</body>
+</html>
