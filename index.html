@@ -1493,6 +1493,21 @@
         document.getElementById('success-title').textContent = d.successTitle;
         document.getElementById('success-msg').textContent = d.successMsg;
         document.getElementById('success-ref').textContent = 'Reference: ' + ref;
+        // Save donation to Firebase
+        const fname = document.getElementById('m-fname').value.trim();
+        const lname = document.getElementById('m-lname').value.trim();
+        const email = document.getElementById('m-email').value.trim();
+        const phone = document.getElementById('m-phone').value.trim();
+
+        window.saveDonation({
+          name: fname + ' ' + lname,
+          email: email,
+          phone: phone,
+          amount: selectedAmt,
+          cause: activeCause,
+          reference: 'HR-' + Math.floor(100000 + Math.random() * 900000)
+        });
+
         document.getElementById('modal-form-area').style.display = 'none';
         document.getElementById('modal-success').classList.add('show');
         return;
@@ -1544,6 +1559,36 @@
 
     // ── INIT ──────────────────────────────────────────────────────
     renderAmounts('amounts-grid', 'hunger');
+  </script>
+<!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCNH9uk05wBorcgdOCUe-tYbrqLlrt_on4",
+      authDomain: "hoperoot-charity.firebaseapp.com",
+      projectId: "hoperoot-charity",
+      storageBucket: "hoperoot-charity.firebasestorage.app",
+      messagingSenderId: "965958408449",
+      appId: "1:965958408449:web:4ad126cc633b1d1fb82300"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Save donation to Firestore
+    window.saveDonation = async function(data) {
+      try {
+        await addDoc(collection(db, "donations"), {
+          ...data,
+          createdAt: serverTimestamp()
+        });
+        console.log("Donation saved successfully!");
+      } catch (error) {
+        console.error("Error saving donation:", error);
+      }
+    }
   </script>
 </body>
 </html>
