@@ -857,6 +857,7 @@
       .footer-top { grid-template-columns: 1fr; }
     }
   </style>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 <body>
 
@@ -1248,15 +1249,12 @@
             <div class="m-field"><label>Phone (optional)</label><input type="tel" id="m-phone" placeholder="+1 417 000 0000"/></div>
           </div>
 
-          <!-- Step 3: Payment -->
+        <!-- Step 3: Payment -->
           <div class="modal-section" id="msec-3">
-            <h4>Payment Details</h4>
-            <p>Your payment is secured with 256-bit SSL encryption.</p>
-            <div class="m-field"><label>Cardholder Name</label><input type="text" id="m-cardname" placeholder="John Doe"/></div>
-            <div class="m-field"><label>Card Number</label><input type="text" id="m-cardnum" placeholder="0000 0000 0000 0000" maxlength="19" oninput="fmtCard(this)"/></div>
-            <div class="m-field-row">
-              <div class="m-field"><label>Expiry</label><input type="text" id="m-expiry" placeholder="MM / YY" maxlength="7" oninput="fmtExpiry(this)"/></div>
-              <div class="m-field"><label>CVV</label><input type="text" id="m-cvv" placeholder="•••" maxlength="3"/></div>
+            <h4>Confirm & Pay</h4>
+            <p>Click the button below to securely complete your donation of <strong id="confirm-amount"></strong> to the <strong id="confirm-cause"></strong> cause via Paystack.</p>
+            <div style="background:var(--green-light); border:1px solid var(--border); border-radius:12px; padding:1.2rem; margin-top:1rem;">
+              <p style="font-size:0.82rem; color:var(--muted); line-height:1.7;">🔒 You will be redirected to Paystack's secure payment page to complete your donation. We never store your card details.</p>
             </div>
           </div>
         </div>
@@ -1442,6 +1440,10 @@
     }
 
     function updateMSteps() {
+      if (mStep === 3) {
+        document.getElementById('confirm-amount').textContent = '$' + selectedAmt.toLocaleString();
+        document.getElementById('confirm-cause').textContent = activeCause === 'hunger' ? 'Hunger Relief 🍽️' : 'Environment 🌿';
+      }
       [1,2,3].forEach(n => {
         const el = document.getElementById('mstep-' + n);
         const doneClass = activeCause === 'hunger' ? 'hunger-done' : 'done';
@@ -1475,41 +1477,56 @@
         if (!valid) { showToast('Please fill in all required fields.'); return; }
         mStep = 3;
       } else if (mStep === 3) {
-        const cardName = document.getElementById('m-cardname').value.trim();
-        const cardNum = document.getElementById('m-cardnum').value.replace(/\s/g,'');
-        const expiry = document.getElementById('m-expiry').value;
-        const cvv = document.getElementById('m-cvv').value;
-        let valid = true;
-        if (!cardName) { document.getElementById('m-cardname').classList.add('err'); valid = false; }
-        if (cardNum.length < 16) { document.getElementById('m-cardnum').classList.add('err'); valid = false; }
-        if (expiry.length < 7) { document.getElementById('m-expiry').classList.add('err'); valid = false; }
-        if (cvv.length < 3) { document.getElementById('m-cvv').classList.add('err'); valid = false; }
-        if (!valid) { showToast('Please check your payment details.'); return; }
-
-        // Show success
-        const d = causeData[activeCause];
-        const ref = 'HR-' + Math.floor(100000 + Math.random() * 900000);
-        document.getElementById('success-icon').textContent = d.successIcon;
-        document.getElementById('success-title').textContent = d.successTitle;
-        document.getElementById('success-msg').textContent = d.successMsg;
-        document.getElementById('success-ref').textContent = 'Reference: ' + ref;
-        // Save donation to Firebase
         const fname = document.getElementById('m-fname').value.trim();
         const lname = document.getElementById('m-lname').value.trim();
         const email = document.getElementById('m-email').value.trim();
         const phone = document.getElementById('m-phone').value.trim();
+        const d = causeData[activeCause];
 
-        window.saveDonation({
-          name: fname + ' ' + lname,
+        // Close modal first
+        closeModal();
+
+        // Launch Paystack
+        const handler = PaystackPop.setup({
+          key: 'pk_test_777ee766c3a86a2c4ff78ac2dd5ae705db5447ac',
           email: email,
-          phone: phone,
-          amount: selectedAmt,
-          cause: activeCause,
-          reference: 'HR-' + Math.floor(100000 + Math.random() * 900000)
-        });
+          amount: selectedAmt * 100, // Paystack uses kobo
+          currency: 'NGN',
+          ref: 'HR-' + Math.floor(100000 + Math.random() * 900000),
+          metadata: {
+            custom_fields: [
+              { display_name: 'Donor Name', variable_name: 'donor_name', value: fname + ' ' + lname },
+              { display_name: 'Phone', variable_name: 'phone', value: phone },
+              { display_name: 'Cause', variable_name: 'cause', value: activeCause }
+            ]
+          },
+          callback: function(response) {
+            // Payment successful — save donation to Firebase
+            window.saveDonation({
+              name: fname + ' ' + lname,
+              email: email,
+              phone: phone,
+              amount: selectedAmt,
+              cause: activeCause,
+              reference: response.reference,
+              status: 'paid'
+            });
 
-        document.getElementById('modal-form-area').style.display = 'none';
-        document.getElementById('modal-success').classList.add('show');
+            // Show success screen
+            document.getElementById('success-icon').textContent = d.successIcon;
+            document.getElementById('success-title').textContent = d.successTitle;
+            document.getElementById('success-msg').textContent = d.successMsg;
+            document.getElementById('success-ref').textContent = 'Reference: ' + response.reference;
+            document.getElementById('modal-form-area').style.display = 'none';
+            document.getElementById('modal-success').classList.add('show');
+            document.getElementById('modal-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+          },
+          onClose: function() {
+            showToast('Payment cancelled. You can donate anytime!');
+          }
+        });
+        handler.openIframe();
         return;
       }
       updateMSteps();
