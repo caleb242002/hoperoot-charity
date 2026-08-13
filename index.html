@@ -50,6 +50,12 @@
       border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 200;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
    .nav-inner {
       max-width: 1200px; margin: 0 auto;
@@ -158,7 +164,7 @@
     .hero-content {
       max-width: 1200px; margin: 0 auto; padding: 5rem 2.5rem;
       display: grid; grid-template-columns: 1fr;
-      gap: 4rem; align-items: center;
+      gap: 4rem; align-items: center; justify-items: center;
       position: relative; z-index: 1; width: 100%;
     }
 
@@ -189,10 +195,11 @@
       color: var(--muted); max-width: 500px;
       margin-bottom: 2.5rem;
       animation: fadeUp 0.7s 0.2s ease both;
+      text-align: center;
     }
 
     .hero-actions {
-      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+      display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap;
       margin-bottom: 3rem;
       animation: fadeUp 0.7s 0.3s ease both;
     }
@@ -218,7 +225,7 @@
 
     /* Hero stats */
     .hero-stats {
-      display: flex; gap: 2rem; flex-wrap: wrap;
+      display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
       animation: fadeUp 0.7s 0.4s ease both;
     }
     .hero-stat strong {
@@ -300,6 +307,13 @@
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem; margin-bottom: 0.8rem;
     }
+    .impact-preview {
+      background: var(--green-light); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.8rem 1rem;
+      font-size: 0.85rem; color: var(--green); font-weight: 700;
+      margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .impact-preview.hunger { background: var(--amber-light); color: var(--amber); }
     .amt-btn {
       padding: 0.65rem 0.4rem; border-radius: 10px;
       border: 2px solid var(--border);
@@ -596,9 +610,16 @@
     .testi-author { display: flex; align-items: center; gap: 0.8rem; }
     .testi-avatar {
       width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255,255,255,0.15);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; flex-shrink: 0;
+      font-size: 0.85rem; font-weight: 800; flex-shrink: 0;
+      color: white; font-family: 'Nunito', sans-serif;
+    }
+    .avatar-olivia { background: linear-gradient(135deg, #2d7a4f, #4aab72); }
+    .avatar-mpho { background: linear-gradient(135deg, #d47c2a, #f0a44a); }
+    .avatar-julia { background: linear-gradient(135deg, #5c4d7d, #8b7db3); }
+    .verified-badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.65rem; color: var(--green-mid); font-weight: 700; margin-top: 0.15rem;
     }
     .testi-name {
       font-weight: 700; font-size: 0.88rem; color: var(--white);
@@ -645,6 +666,20 @@
     .modal-close:hover { background: var(--border); }
 
     .modal-body { padding: 2rem; }
+    .freq-toggle {
+      display: flex; background: var(--warm); border-radius: 50px;
+      padding: 0.3rem; margin-bottom: 1.5rem; width: fit-content;
+    }
+    .freq-btn {
+      padding: 0.5rem 1.4rem; border: none; background: transparent;
+      border-radius: 50px; font-weight: 700; font-size: 0.8rem;
+      cursor: pointer; font-family: 'Nunito', sans-serif;
+      color: var(--muted); transition: all 0.2s;
+    }
+    .freq-btn.active {
+      background: white; color: var(--ink);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
 
     /* Modal steps */
     .modal-steps {
@@ -736,8 +771,8 @@
       max-width: 1200px; margin: 0 auto;
     }
     .footer-top {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem; padding-bottom: 3rem;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 2.5rem; padding-bottom: 3rem;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       margin-bottom: 2rem;
     }
@@ -851,6 +886,9 @@
       .causes, .how, .stories, .testimonials { padding: 4rem 1.5rem; }
       .hero-content { padding: 4rem 1.5rem; }
     }
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 480px) {
       .how-grid { grid-template-columns: 1fr; }
       .impact-strip-inner { grid-template-columns: 1fr 1fr; }
@@ -858,6 +896,7 @@
     }
   </style>
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<base target="_blank">
 </head>
 <body>
 
@@ -877,7 +916,9 @@
         <li><a href="#causes">Our Causes</a></li>
         <li><a href="#stories">Stories</a></li>
         <li><a href="#how">How It Works</a></li>
-        <li><a href="#donate-section">Donate</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" onclick="openModal('hunger'); return false;">Donate</a></li>
       </ul>
       <a href="#" class="nav-donate" onclick="openModal('hunger'); return false;">Donate Now 💛</a>
       <button class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -890,7 +931,9 @@
       <li><a href="#causes" onclick="closeMenu()">Our Causes</a></li>
       <li><a href="#stories" onclick="closeMenu()">Stories</a></li>
       <li><a href="#how" onclick="closeMenu()">How It Works</a></li>
-      <li><a href="#donate-section" onclick="closeMenu()">Donate</a></li>
+      <li><a href="#faq" onclick="closeMenu()">FAQ</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      <li><a href="#" onclick="closeMenu(); openModal('hunger'); return false;">Donate</a></li>
     </ul>
   </div>
 
@@ -936,9 +979,7 @@
         </div>
       </div>
 
-      <!-- DONATION CARD -->
-      </div>
-      </div>
+
     </div>
   </section>
 
@@ -993,6 +1034,7 @@
               <span class="pct">72% of goal</span>
             </div>
             <div class="mini-track"><div class="mini-fill hunger"></div></div>
+            <div style="font-size:0.7rem;color:var(--amber);font-weight:700;margin-top:0.4rem;display:flex;align-items:center;gap:0.3rem;">⏰ Goal deadline: December 31, 2026</div>
           </div>
           <a href="#" class="cause-card-cta amber" onclick="openModal('hunger'); return false;">
             Donate to Hunger Relief →
@@ -1016,6 +1058,7 @@
               <span class="pct">55% of goal</span>
             </div>
             <div class="mini-track"><div class="mini-fill env"></div></div>
+            <div style="font-size:0.7rem;color:var(--green);font-weight:700;margin-top:0.4rem;display:flex;align-items:center;gap:0.3rem;">⏰ Goal deadline: June 30, 2027</div>
           </div>
           <a href="#" class="cause-card-cta green" onclick="openModal('env'); return false;">
             Donate to Environment →
@@ -1059,7 +1102,7 @@
         </div>
         <div class="story-card reveal reveal-delay-2">
           <div class="story-img">
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80" alt="Story"/>
+            <img src="https://images.unsplash.com/photo-1594708767771-a7502f4d5e97?w=600&q=80" alt="School children in Kenya"/>
           </div>
           <div class="story-body">
             <span class="story-tag tag-hunger">Hunger Relief</span>
@@ -1113,34 +1156,88 @@
         <div class="testi-card reveal">
           <p class="testi-quote">"I've donated to many charities, but HopeRoot is the only one that sends me real photos and updates from the field. I know exactly where my money goes."</p>
           <div class="testi-author">
-            <div class="testi-avatar">👩🏾</div>
+            <div class="testi-avatar avatar-olivia">OM</div>
             <div>
               <div class="testi-name">Olivia Madison</div>
               <div class="testi-role">Monthly donor · Texas, United States</div>
+              <div class="verified-badge">✓ Verified donor</div>
             </div>
           </div>
         </div>
         <div class="testi-card reveal reveal-delay-1">
           <p class="testi-quote">"The environment program is incredible. I donated $10,000 and they sent me a certificate showing the exact trees planted in my name. My kids loved it."</p>
           <div class="testi-author">
-            <div class="testi-avatar">👨🏿</div>
+            <div class="testi-avatar avatar-mpho">MJ</div>
             <div>
               <div class="testi-name">Mpho Johan</div>
               <div class="testi-role">One-time donor · Cape Town, South Africa</div>
+              <div class="verified-badge">✓ Verified donor</div>
             </div>
           </div>
         </div>
         <div class="testi-card reveal reveal-delay-2">
           <p class="testi-quote">"As a business owner I wanted to give back. HopeRoot made it easy to set up a monthly donation and their team was so responsive. Highly recommended."</p>
           <div class="testi-author">
-            <div class="testi-avatar">👩🏽</div>
+            <div class="testi-avatar avatar-julia">JS</div>
             <div>
               <div class="testi-name">Julia Smith</div>
               <div class="testi-role">Corporate donor · Edinburgh, United Kingdom</div>
+              <div class="verified-badge">✓ Verified donor</div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section class="how" id="faq" style="background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div class="reveal">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Frequently asked <em>questions</em></h2>
+      <p class="section-desc">Everything you need to know about donating to HopeRoot.</p>
+    </div>
+    <div style="max-width:800px; margin:3rem auto 0;">
+      <details style="background:var(--cream); border:1px solid var(--border); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem; cursor:pointer;">
+        <summary style="font-weight:700; font-size:1rem; list-style:none; display:flex; justify-content:space-between; align-items:center;">Is my donation tax-deductible? <span style="color:var(--green); font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:1rem; color:var(--muted); font-size:0.92rem; line-height:1.7;">Yes. HopeRoot is a registered non-profit organization. You will receive a tax receipt via email immediately after your donation is processed. Please consult your local tax advisor for deductibility in your jurisdiction.</p>
+      </details>
+      <details style="background:var(--cream); border:1px solid var(--border); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem; cursor:pointer;">
+        <summary style="font-weight:700; font-size:1rem; list-style:none; display:flex; justify-content:space-between; align-items:center;">Can I cancel my monthly donation? <span style="color:var(--green); font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:1rem; color:var(--muted); font-size:0.92rem; line-height:1.7;">Absolutely. You can cancel or modify your monthly donation at any time through your donor dashboard or by emailing us at <a href="mailto:support@hoperoot.org" style="color:var(--green); text-decoration:none; font-weight:600;">support@hoperoot.org</a>. Cancellations take effect at the next billing cycle.</p>
+      </details>
+      <details style="background:var(--cream); border:1px solid var(--border); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem; cursor:pointer;">
+        <summary style="font-weight:700; font-size:1rem; list-style:none; display:flex; justify-content:space-between; align-items:center;">How do I know my money reaches the field? <span style="color:var(--green); font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:1rem; color:var(--muted); font-size:0.92rem; line-height:1.7;">We publish quarterly impact reports with photos, GPS coordinates of project sites, and detailed financial breakdowns. 98% of every donation goes directly to our programs. The remaining 2% covers essential payment processing and compliance costs.</p>
+      </details>
+      <details style="background:var(--cream); border:1px solid var(--border); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem; cursor:pointer;">
+        <summary style="font-weight:700; font-size:1rem; list-style:none; display:flex; justify-content:space-between; align-items:center;">Do you accept corporate partnerships? <span style="color:var(--green); font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:1rem; color:var(--muted); font-size:0.92rem; line-height:1.7;">Yes. We work with companies of all sizes for matching gift programs, CSR initiatives, and employee volunteering. Contact us at <a href="mailto:partnerships@hoperoot.org" style="color:var(--green); text-decoration:none; font-weight:600;">partnerships@hoperoot.org</a> to discuss opportunities.</p>
+      </details>
+      <details style="background:var(--cream); border:1px solid var(--border); border-radius:14px; padding:1.2rem 1.5rem; margin-bottom:1rem; cursor:pointer;">
+        <summary style="font-weight:700; font-size:1rem; list-style:none; display:flex; justify-content:space-between; align-items:center;">What payment methods do you accept? <span style="color:var(--green); font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:1rem; color:var(--muted); font-size:0.92rem; line-height:1.7;">We accept all major credit and debit cards, bank transfers, and mobile money via Paystack. All transactions are encrypted and PCI-DSS compliant. We never store your card details on our servers.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="how" id="contact">
+    <div class="reveal">
+      <div class="section-tag">Contact</div>
+      <h2 class="section-title">Get in <em>touch</em></h2>
+      <p class="section-desc">Have questions or want to partner with us? We would love to hear from you.</p>
+    </div>
+    <div style="max-width:600px; margin:2rem auto 0; text-align:center;">
+      <p style="margin-bottom:1.5rem; color:var(--muted); line-height:2;">
+        📧 <a href="mailto:hello@hoperoot.org" style="color:var(--green); text-decoration:none; font-weight:700;">hello@hoperoot.org</a><br/>
+        📞 <a href="tel:+2348001234567" style="color:var(--green); text-decoration:none; font-weight:700;">+234 800 123 4567</a><br/>
+        📍 12 Hope Street, Lagos, Nigeria
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted);">
+        Registered NGO #RC123456 · 501(c)(3) Tax-Exempt Organization
+      </p>
     </div>
   </section>
 
@@ -1167,29 +1264,38 @@
         <div class="footer-col">
           <h4>Organisation</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Team</a></li>
+            <li><a href="#home">About Us</a></li>
+            <li><a href="#stories">Our Impact</a></li>
+            <li><a href="#how">Transparency</a></li>
             <li><a href="#">Annual Report</a></li>
-            <li><a href="#">Press</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Get Involved</h4>
           <ul>
-            <li><a href="#">Donate</a></li>
+            <li><a href="#" onclick="openModal('hunger'); return false;">Donate</a></li>
             <li><a href="#">Volunteer</a></li>
             <li><a href="#">Partner With Us</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 HopeRoot Foundation. All rights reserved. Registered Non-Profit.</p>
+        <p>© 2026 HopeRoot Foundation. All rights reserved. Registered Non-Profit. <a href="privacy.html" style="color:rgba(255,255,255,0.4); text-decoration:none;">Privacy</a> · <a href="terms.html" style="color:rgba(255,255,255,0.4); text-decoration:none;">Terms</a></p>
         <div class="footer-socials">
-          <a href="#" class="social-link">𝕏</a>
-          <a href="#" class="social-link">in</a>
-          <a href="#" class="social-link">f</a>
-          <a href="#" class="social-link">▶</a>
+          <a href="#" class="social-link" rel="noopener noreferrer" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" rel="noopener noreferrer" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" rel="noopener noreferrer" aria-label="YouTube">▶</a>
         </div>
       </div>
     </div>
@@ -1232,8 +1338,9 @@
               <button class="amt-btn" onclick="selectModalAmt(this, 50000)">$50,000<span class="impact">Community meal</span></button>
               <button class="amt-btn" onclick="selectModalAmt(this, 100000)">$100,000<span class="impact">School feeding</span></button>
             </div>
+            <div class="impact-preview" id="modal-impact">💚 $100 feeds a family for one week</div>
             <div class="custom-field" style="margin-top:0.5rem">
-              <input type="number" id="modal-custom" placeholder="Or enter custom amount ($)"/>
+              <input type="number" id="modal-custom" placeholder="Or enter custom amount ($)" oninput="updateModalImpact()"/>
             </div>
           </div>
 
@@ -1252,7 +1359,7 @@
         <!-- Step 3: Payment -->
           <div class="modal-section" id="msec-3">
             <h4>Confirm & Pay</h4>
-            <p>Click the button below to securely complete your donation of <strong id="confirm-amount"></strong> to the <strong id="confirm-cause"></strong> cause via Paystack.</p>
+            <p>Click the button below to securely complete your donation <strong id="confirm-amount"></strong> to the <strong id="confirm-cause"></strong> cause via Paystack.</p>
             <div style="background:var(--green-light); border:1px solid var(--border); border-radius:12px; padding:1.2rem; margin-top:1rem;">
               <p style="font-size:0.82rem; color:var(--muted); line-height:1.7;">🔒 You will be redirected to Paystack's secure payment page to complete your donation. We never store your card details.</p>
             </div>
@@ -1296,6 +1403,7 @@
     let activeCause = 'hunger';
     let selectedAmt = 5000;
     let mStep = 1;
+    let donationFrequency = 'once';
 
     const causeData = {
       hunger: {
@@ -1373,6 +1481,35 @@
       `).join('');
     }
 
+    const impactMessages = {
+      hunger: {
+        2000: 'feeds 1 child for 5 days',
+        5000: 'feeds a family for one week',
+        10000: 'provides a week of meals',
+        25000: 'feeds 10 children for a month',
+        50000: 'runs a community kitchen for a week',
+        100000: 'funds school feeding program'
+      },
+      env: {
+        2000: 'plants 2 trees',
+        5000: 'plants 5 trees',
+        10000: 'plants 10 trees',
+        25000: 'restores 0.5 hectares',
+        50000: 'plants 50 trees + care',
+        100000: 'funds a forest plot'
+      }
+    };
+
+    function updateModalImpact() {
+      const custom = parseFloat(document.getElementById('modal-custom').value);
+      const amt = custom > 0 ? custom : selectedAmt;
+      const msgs = impactMessages[activeCause];
+      const msg = msgs[amt] || (activeCause === 'hunger' ? 'feeds families in need' : 'plants trees and restores land');
+      const el = document.getElementById('modal-impact');
+      el.textContent = (activeCause === 'hunger' ? '🍽️' : '🌿') + ' $' + amt.toLocaleString() + ' ' + msg;
+      el.className = 'impact-preview' + (activeCause === 'hunger' ? ' hunger' : '');
+    }
+
     function renderModalAmounts(cause) {
       const grid = document.getElementById('modal-amounts');
       const amounts = causeData[cause].amounts;
@@ -1394,11 +1531,19 @@
 
     function selectModalAmt(btn, val) {
       selectedAmt = val;
+      document.getElementById('modal-custom').value = '';
       document.querySelectorAll('#modal-amounts .amt-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
+      updateModalImpact();
     }
 
     // ── MODAL ─────────────────────────────────────────────────────
+    function selectFrequency(freq) {
+      donationFrequency = freq;
+      document.getElementById('freq-once').classList.toggle('active', freq === 'once');
+      document.getElementById('freq-monthly').classList.toggle('active', freq === 'monthly');
+    }
+
     function openModal(cause) {
       activeCause = cause;
       mStep = 1;
@@ -1421,6 +1566,7 @@
       document.getElementById('modal-tab-env').className = 'cause-tab' + (cause === 'env' ? ' active-env' : '');
       document.getElementById('m-next').className = 'modal-next ' + (cause === 'hunger' ? 'amber' : '');
       renderModalAmounts(cause);
+      updateModalImpact();
     }
 
     function openModalFromCard() {
@@ -1441,7 +1587,8 @@
 
     function updateMSteps() {
       if (mStep === 3) {
-        document.getElementById('confirm-amount').textContent = '$' + selectedAmt.toLocaleString();
+        const freqLabel = donationFrequency === 'monthly' ? 'monthly' : 'one-time';
+        document.getElementById('confirm-amount').textContent = '$' + selectedAmt.toLocaleString() + ' ' + freqLabel;
         document.getElementById('confirm-cause').textContent = activeCause === 'hunger' ? 'Hunger Relief 🍽️' : 'Environment 🌿';
       }
       [1,2,3].forEach(n => {
@@ -1451,7 +1598,8 @@
         document.getElementById('msec-' + n).classList.toggle('active', n === mStep);
       });
       document.getElementById('m-back').style.display = mStep > 1 ? '' : 'none';
-      document.getElementById('m-next').textContent = mStep === 3 ? `Complete Donation — $${selectedAmt.toLocaleString()} →` : 'Continue →';
+      const freqPrefix = donationFrequency === 'monthly' ? 'Monthly' : 'Complete';
+      document.getElementById('m-next').textContent = mStep === 3 ? `${freqPrefix} Donation — $${selectedAmt.toLocaleString()} →` : 'Continue →';
     }
 
     function mNext() {
@@ -1497,7 +1645,8 @@
             custom_fields: [
               { display_name: 'Donor Name', variable_name: 'donor_name', value: fname + ' ' + lname },
               { display_name: 'Phone', variable_name: 'phone', value: phone },
-              { display_name: 'Cause', variable_name: 'cause', value: activeCause }
+              { display_name: 'Cause', variable_name: 'cause', value: activeCause },
+              { display_name: 'Frequency', variable_name: 'frequency', value: donationFrequency }
             ]
           },
           callback: function(response) {
